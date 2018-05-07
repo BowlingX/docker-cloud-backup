@@ -53,6 +53,7 @@ PORT      = os.environ.get('MYSQL_PORT', '3306')
 USERNAME  = os.environ.get('MYSQL_USER')
 PASSWORD  = os.environ.get('MYSQL_PASSWORD')
 DB        = os.environ.get('MYSQL_DATABASE')
+OPTS      = os.environ.get('MYSQL_DUMP_OPTS')
 
 cloud = GCS(BUCKET, KEEP)
 
@@ -66,7 +67,7 @@ def backup():
             "--port=%s" % PORT,
             "--user=%s" % USERNAME,
             "--password=%s" % PASSWORD,
-            DB], stdout = f)
+            OPTS, DB], stdout = f)
 
         cloud.upload(f, backup_name)
 
